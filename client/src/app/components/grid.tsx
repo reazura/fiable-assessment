@@ -19,7 +19,7 @@ export default function MainGrid({ input }: MainGridParams) {
   let elements = [];
   for (let index = 0; index < cellCount; index++) {
     elements.push(
-      <Grid size={rowSize} className="bg-white min-h-20 min-w-3 border-2 border-black border-solid">
+      <Grid key={index} size={rowSize} className="bg-white min-h-20 min-w-3 border-2 border-black border-solid">
         {
           !errors && Math.floor(index / colCount) == y && index % rowCount == x &&
           (<Target rotation={rotation!} />)
