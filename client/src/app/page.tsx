@@ -3,7 +3,7 @@ import { useState } from "react";
 import MainGrid from "./components/grid";
 
 export default function Home() {
-  const [input, setInput] = useState<string>("")
+  const [input, setInput] = useState<string>("1,1 NORTH")
 
   return (
     <div className="flex justify-center">

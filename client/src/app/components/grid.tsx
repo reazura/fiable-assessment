@@ -14,7 +14,6 @@ type MainGridParams = {
 
 export default function MainGrid({ input }: MainGridParams) {
   const { x, y, direction, errors } = tryParseInput(input);
-
   const rotation = directionToRotation(direction);
 
   let elements = [];
@@ -30,9 +29,12 @@ export default function MainGrid({ input }: MainGridParams) {
   }
 
   return (
-    <Grid container rowSpacing={1} columnSpacing={1}>
-      {elements}
-    </Grid>
+    <>
+      <p className="text-red-500 min-h-6">{errors}</p>
+      <Grid container rowSpacing={1} columnSpacing={1}>
+        {elements}
+      </Grid>
+    </>
   );
 }
 
@@ -52,17 +54,18 @@ function directionToRotation(input: CardinalDirections | undefined) {
 function tryParseInput(input: string) {
   const [coords, direction] = input.split(' ');
   if (!coords || !direction)
-    return { errors: "1" };
+    return { errors: "missing input" };
 
   const parsedDirection = CardinalDirections[direction.toLowerCase() as keyof typeof CardinalDirections];
   if (!parsedDirection)
-    return { errors: "2" };
+    return { errors: "unknown direction" };
 
   const [x, y] = coords.split(',').map(x => +x);
   if (x < 0 || x >= rowCount)
-    return { errors: "3" };
+    return { errors: `x-input must be between 0 and ${rowCount}` };
+
   if (y < 0 || y >= colCount)
-    return { errors: "4" };
+    return { errors: `y-input must be between 0 and ${colCount}` };
 
   return { x, y, direction: parsedDirection };
 }
