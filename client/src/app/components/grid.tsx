@@ -19,7 +19,7 @@ export default function MainGrid({ input }: MainGridParams) {
   let elements = [];
   for (let index = 0; index < cellCount; index++) {
     elements.push(
-      <Grid size={rowSize} className="bg-white min-h-20 min-w-3">
+      <Grid size={rowSize} className="bg-white min-h-20 min-w-3 border-2 border-black border-solid">
         {
           !errors && Math.floor(index / colCount) == y && index % rowCount == x &&
           (<Target rotation={rotation!} />)
@@ -52,6 +52,9 @@ function directionToRotation(input: CardinalDirections | undefined) {
 }
 
 function tryParseInput(input: string) {
+  if (!input)
+    return { errors: "missing input" };
+
   const [coords, direction] = input.split(' ');
   if (!coords || !direction)
     return { errors: "missing input" };
